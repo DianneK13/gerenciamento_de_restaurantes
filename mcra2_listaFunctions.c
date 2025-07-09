@@ -179,7 +179,22 @@ void removerPrato(Restaurante* restaurantes, int qtdRestaurantes) {
 
 
 void desaloca(Restaurante* restaurantes, int qtdRestaurantes) {
-
+    int i = 0;
+    while (i < qtdRestaurantes) {
+        // Libera pratos do menu
+        for (int j = 0; j < restaurantes[i].qtdMenu; j++) {
+            free(restaurantes[i].menu[j].nome);
+            free(restaurantes[i].menu[j].descricao);
+        }
+        // Libera vetor de pratos
+        free(restaurantes[i].menu);
+        //Libera nome e descrição do restaurante
+        free(restaurantes[i].nome);
+        free(restaurantes[i].descricao);
+        i++;
+    }
+    // Libera vetor de restaurantes
+    free(restaurantes);
 }
 
 int main () {
