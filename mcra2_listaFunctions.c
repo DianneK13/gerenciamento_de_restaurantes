@@ -371,18 +371,28 @@ int main() {
         printf("=================================\n");
         printf("1️⃣  - Cadastrar restaurante\n");
         printf("2️⃣  - Listar restaurantes\n");
-        printf("3️⃣  - Sair\n");
+        printf("3️⃣  - Atualizar restaurante\n");
+        printf("4️⃣  - Adicionar prato\n");
+        printf("5️⃣  - Listar menu\n");
+        printf("6️⃣  - Remover prato\n");
+        printf("7️⃣  - Sair\n");
         printf("=================================\n");
         printf("Digite sua opcao: ");
         scanf(" %d", &opcao);
 
         if (opcao == 1) {
             novoRestaurante(&restaurantes, &qtdRestaurantes);
-        }
-        else if (opcao == 2) {
+        } else if (opcao == 2) {
             listarRestaurantes(&restaurantes, qtdRestaurantes);
-        }
-        else if (opcao == 3) {
+        } else if (opcao == 3) {
+            atualizarRestaurante(restaurantes, qtdRestaurantes);
+        } else if (opcao == 4) {
+            adicionarPrato(restaurantes, qtdRestaurantes);
+        } else if (opcao == 5) {
+            listarMenu(restaurantes, qtdRestaurantes);
+        } else if (opcao == 6) {
+            removerPrato(restaurantes, qtdRestaurantes);
+        } else if (opcao == 7) {
             printf("\nEncerrando sistema GO Food...\n");
             desaloca(restaurantes, qtdRestaurantes);
         }
