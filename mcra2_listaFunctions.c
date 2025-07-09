@@ -160,6 +160,64 @@ Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestauran
 
 void atualizarRestaurante(Restaurante* restaurantes, int qtdRestaurantes) {
 
+    printf("Digite o codigo do restaurante que deseja atualizar: ");
+    int codigo;
+    scanf("%d", &codigo);
+
+    Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
+
+    if (r == NULL) {
+            printf("Restaurante nao encontrado.\n");
+        } else {
+            char escolha;
+            char novoTexto[100];
+
+            // Atualizar nome
+            printf("Deseja alterar o nome? (S/N)");
+            scanf(" %c\n", &escolha);
+            if (escolha == 'S' || escolha == 's') {
+                printf("Digite o novo nome: \n");
+                scanf(" %49[^\n]", novoTexto);
+
+                // Liberar antigo
+                free(r->nome);
+                *r->nome = strdup(novoTexto);
+                if (r->nome == NULL) {
+                    printf("Problema de alocacao na troca de nome!\n");
+                    exit(1);
+                }
+            }
+
+            // Atualizar descricao
+            printf("Deseja alterar a descrição? (S/N)");
+            scanf(" %c", escolha);
+            if (escolha == 'S' || escolha == 's'){
+                printf("Digite nova descricao: ");
+                scanf(" %[^\n]", novoTexto);
+
+                // Liberar antigo
+                free(r->descricao);
+                *r->descricao = strdup(novoTexto);
+                if (r->descricao == NULL){
+                    printf("Problema de alocacao na troca de descricao!\n");
+                    exit(1);
+                }
+            }
+
+            // Atualizar tipo
+            printf("Deseja atualizar o tipo de cozinha? (S/N)");
+            scanf(" %c", escolha);
+            if (escolha == 'S' || escolha == 's') {
+                int novoTipo;
+                printf("Escolha um novo tipo de cozinha: ");
+                printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
+                scanf(" %d", &novoTipo);
+
+                r->tipo = novoTipo;
+            }
+            printf("Restaurante atualizado com sucesso!\n");
+        }
+
 }
 
 
