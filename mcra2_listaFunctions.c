@@ -83,9 +83,65 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
     }
 }
 
-
 void listarRestaurantes(Restaurante** restaurantes, int qtdRestaurantes) {
+    if (qtdRestaurantes == 0) {
+        printf("Nenhum restaurante cadastrado no sistema. \n");
 
+    } else {
+        int filtrar;
+        printf("Deseja filtrar por tipo de cozinha? (1 - SIM, 0 - NAO): ");
+        scanf("%d\n", &filtrar);
+
+        int tipoFiltro = -1;
+        if (filtrar == 1) {
+            printf("Escolha o tipo de cozinha: \n");
+            printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n"
+                   "5 - Vegana\n6 - FastFood\n7 - Outros\n");
+            printf("Digite o numero correspondente: \n");
+            scanf("%d", &tipoFiltro);
+        }
+
+        int encontrados = 0;
+        int i = 0;
+        while (i < qtdRestaurantes) {
+            // se for para filtrar, so mostre se o tipo bater
+            if (filtrar == 1 && restaurantes[i]->tipo != tipoFiltro) {
+                i++;
+            } else {
+                
+                printf("\nRestaurante: %s\n", restaurantes[i]->nome);
+                printf("Descricao: %s\n", restaurantes[i]->descricao);
+                printf("Codigo: %d\n", restaurantes[i]->codigo);
+                printf("Tipo: ");
+                
+                if (restaurantes[i]->tipo == italiana) {
+                    printf("italiana\n");
+                } else if (restaurantes[i]->tipo == japonesa) {
+                    printf("japonesa\n");
+                } else if (restaurantes[i]->tipo == brasileira) {
+                    printf("brasileira\n");
+                } else if (restaurantes[i]->tipo == mexicana) {
+                    printf("mexicana\n");
+                } else if (restaurantes[i]->tipo == vegana) {
+                    printf("vegana\n");
+                } else if (restaurantes[i]->tipo == fastFood) {
+                    printf("fastFood\n");
+                } else if (restaurantes[i]->tipo == outros) {
+                    printf("outros\n");
+                } else printf("tipo desconhecido.\n");
+
+                printf("---\n");
+
+                encontrados++;
+            }
+
+            if (encontrados == 0) {
+                printf("\nNenhum restaurante encontrado com os filtros selecionados.");
+            } else {
+                printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
+            }
+        }
+    }
 }
 
 
