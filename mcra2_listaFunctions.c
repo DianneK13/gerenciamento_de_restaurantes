@@ -14,14 +14,14 @@ typedef enum {
 } TipoCozinha;
 
 typedef struct {
-    char nome[100];
-    char descricao[100];
+    char *nome;
+    char *descricao;
     float preco;
 } Prato;
 
 typedef struct{
-    char nome[50];
-    char descricao[100];
+    char *nome;
+    char *descricao;
     int codigo;
     TipoCozinha tipo;
     Prato* menu;
@@ -157,8 +157,7 @@ Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestauran
 
 }
 
-
-void atualizarRestaurante(Restaurante* restaurantes, int qtdRestaurantes) {
+void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite o codigo do restaurante que deseja atualizar: ");
     int codigo;
@@ -181,7 +180,7 @@ void atualizarRestaurante(Restaurante* restaurantes, int qtdRestaurantes) {
 
                 // Liberar antigo
                 free(r->nome);
-                *r->nome = strdup(novoTexto);
+                r->nome = strdup(novoTexto);
                 if (r->nome == NULL) {
                     printf("Problema de alocacao na troca de nome!\n");
                     exit(1);
@@ -197,7 +196,7 @@ void atualizarRestaurante(Restaurante* restaurantes, int qtdRestaurantes) {
 
                 // Liberar antigo
                 free(r->descricao);
-                *r->descricao = strdup(novoTexto);
+                r->descricao = strdup(novoTexto);
                 if (r->descricao == NULL){
                     printf("Problema de alocacao na troca de descricao!\n");
                     exit(1);
@@ -221,7 +220,54 @@ void atualizarRestaurante(Restaurante* restaurantes, int qtdRestaurantes) {
 }
 
 
-void adicionarPrato(Restaurante* restaurantes, int qtdRestaurantes) {
+void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
+
+    printf("Digite o codigo do restaurante que deseja adicionar um prato: ");
+    int codigo;
+    scanf("%d", &codigo);
+
+    Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
+    if (r == NULL) {
+        printf("Restaurante nao encontrado.\n");
+    } else {
+        Prato novoPrato;
+        char nomePrato[100];
+        char descPrato[100];
+
+        printf("Digite o nome do prato: \n");
+        scanf(" %[^\n]", nomePrato);
+
+        printf("Digite a descricao do prato: \n");
+        scanf(" %[^\n]", descPrato);
+
+        printf("E qual o preco? \n");
+        scanf(" %f", &novoPrato.preco);
+
+        novoPrato.nome = strdup(nomePrato);
+        if (novoPrato.nome == NULL) {
+            printf("Erro de alocacao no nome.\n");
+            exit(1);
+        }
+
+        novoPrato.descricao = strdup(descPrato);
+        if (novoPrato.descricao == NULL) {
+            printf("Erro de alocacao na descricao.\n");
+            exit(1);
+        }
+
+        // Realocar espaco extra
+        Prato *tmp = realloc(r->menu, (r->qtdMenu + 1) * sizeof(Prato));
+        if (tmp == NULL) {
+            printf("Erro de alocacao no menu\n");
+            exit(1);
+        }
+        r->menu = tmp;
+
+        r->menu[r->qtdMenu] = novoPrato;
+        r->qtdMenu++;
+
+        printf("Prato adicionado ao menu do Restaurante %s com sucesso!\n", r->nome);
+    }
 
 }
 
@@ -276,7 +322,7 @@ int main() {
             novoRestaurante(&restaurantes, &qtdRestaurantes);
         }
         else if (opcao == 2) {
-            listarRestaurantes(restaurantes, qtdRestaurantes);
+            listarRestaurantes(&restaurantes, qtdRestaurantes);
         }
         else if (opcao == 3) {
             printf("\nEncerrando sistema GO Food...\n");
