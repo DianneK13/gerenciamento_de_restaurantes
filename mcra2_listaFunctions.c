@@ -83,7 +83,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
     }
 }
 
-void listarRestaurantes(Restaurante** restaurantes, int qtdRestaurantes) {
+void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
     if (qtdRestaurantes == 0) {
         printf("Nenhum restaurante cadastrado no sistema. \n");
 
@@ -144,8 +144,16 @@ void listarRestaurantes(Restaurante** restaurantes, int qtdRestaurantes) {
     }
 }
 
-
-Restaurante* buscarRestaurante(Restaurante* restaurantes, int qtdRestaurantes, int codigoRestaurante) {
+Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes, const int codigoRestaurante) {
+    Restaurante *restEncontrado = NULL;  // Variável de controle
+    int i = 0;   // Percorre a lista enquanto não encontrar
+    while (i < qtdRestaurantes && restEncontrado == NULL) {
+        if (restaurantes[i].codigo == codigoRestaurante) {
+            restEncontrado = &restaurantes[i];
+        }
+        i++;
+    }
+    return restEncontrado;  // Retorna NULL, se não achar
 
 }
 
