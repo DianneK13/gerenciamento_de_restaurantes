@@ -219,7 +219,6 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 
 }
 
-
 void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite o codigo do restaurante que deseja adicionar um prato: ");
@@ -271,7 +270,6 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
 }
 
-
 void listarMenu(Restaurante* restaurantes, int qtdRestaurantes) {
 
     printf("Digite  o codigo do restaurante que deseja ver o menu: ");
@@ -300,11 +298,47 @@ void listarMenu(Restaurante* restaurantes, int qtdRestaurantes) {
 
 }
 
-
 void removerPrato(Restaurante* restaurantes, int qtdRestaurantes) {
+    printf("Digite o codigo do restaurante que deseja remover um prato: ");
+    int codigo;
+    scanf("%d", &codigo);
 
+    Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
+    if (r == NULL) {
+        printf("Restaurante nao encontrado.\n");
+    } else if (r->qtdMenu == 0) {
+        printf("Nenhum prato cadastrado no menu do restaurante.\n");
+    } else {
+        listarMenu(restaurantes, qtdRestaurantes);
+        // Solicitar indice
+        int indice;
+        printf("Digite o indice do prato que deseja remover: ");
+        scanf("%d", &indice);
+
+        // Validar indice
+        if (indice < 0 || indice >= r->qtdMenu) {
+            printf("Indice invalido.\n");
+        } else {
+            // Liberar prato
+            free(r->menu[indice].nome);
+            free(r->menu[indice].descricao);
+            // Deslocar os pratos seguintes para a esquerda
+            for (int i = indice; i < r->qtdMenu - 1; i++) {
+                r->menu[i] = r->menu[i + 1];
+            }
+            // Reduzir contador
+            r->qtdMenu--;
+            // Realocar vetor
+            Prato *tmp = realloc(r->menu, r->qtdMenu * sizeof(Prato));
+            if (tmp == NULL) {
+                printf("Erro de alocacao no menu\n");
+                exit(1);
+            }
+            r->menu = tmp;
+            printf("Prato removido com sucesso!\n");
+        }
+    }
 }
-
 
 void desaloca(Restaurante* restaurantes, int qtdRestaurantes) {
     int i = 0;
