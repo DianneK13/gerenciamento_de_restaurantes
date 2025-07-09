@@ -50,14 +50,14 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         printf("Codigo ja cadastrado. Nao foi possivel adicionar o restaurante.\n");
     } else {
         printf("Digite o nome do restaurante: \n");
-        scanf("%[^\n]", nome);
+        scanf(" %49[^\n]", nome);
 
         printf("Digite a descricao do restaurante: \n");
-        scanf("%[^\n]", descricao);
+        scanf(" %99[^\n]", descricao);
 
         printf("Escolha o tipo de cozinha: \n");
         printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
-        scanf("%d", &tipo);
+        scanf("%u", &tipo);
 
 
         // Alocar espaco extra
