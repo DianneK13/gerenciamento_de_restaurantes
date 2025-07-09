@@ -274,6 +274,30 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
 void listarMenu(Restaurante* restaurantes, int qtdRestaurantes) {
 
+    printf("Digite  o codigo do restaurante que deseja ver o menu: ");
+    int codigo;
+    scanf("%d", &codigo);
+
+    Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
+    if (r == NULL) {
+        printf("Restaurante nao encontrado.\n");
+    } else if (r->qtdMenu == 0) {
+        printf("Nenhum prato cadastrado no menu do restaurante.\n");
+    } else {
+        printf("\n===== Menu do restaurante %s =====\n", r->nome);
+
+        int i = 0;
+        while (i < r->qtdMenu) {
+            printf("\nPrato %d:\n", i);
+            printf("Nome: %s\n", r->menu[i].nome);
+            printf("Descricao: %s\n", r->menu[i].descricao);
+            printf("Preco: R$%.2f\n", r->menu[i].preco);
+            printf("---");
+            i++;
+        }
+        printf("\n");
+    }
+
 }
 
 
