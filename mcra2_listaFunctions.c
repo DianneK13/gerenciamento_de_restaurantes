@@ -197,7 +197,38 @@ void desaloca(Restaurante* restaurantes, int qtdRestaurantes) {
     free(restaurantes);
 }
 
-int main () {
+
+int main() {
+    Restaurante *restaurantes = NULL;
+    int qtdRestaurantes = 0;
+    int opcao = 0;
+
+    do {
+        printf("\n=================================\n");
+        printf("      🍽️  GO Food - Sistema      \n");
+        printf("=================================\n");
+        printf("1️⃣  - Cadastrar restaurante\n");
+        printf("2️⃣  - Listar restaurantes\n");
+        printf("3️⃣  - Sair\n");
+        printf("=================================\n");
+        printf("Digite sua opcao: ");
+        scanf(" %d", &opcao);
+
+        if (opcao == 1) {
+            novoRestaurante(&restaurantes, &qtdRestaurantes);
+        }
+        else if (opcao == 2) {
+            listarRestaurantes(restaurantes, qtdRestaurantes);
+        }
+        else if (opcao == 3) {
+            printf("\nEncerrando sistema GO Food...\n");
+            desaloca(restaurantes, qtdRestaurantes);
+        }
+        else {
+            printf("Opcao invalida! Tente novamente.\n");
+        }
+
+    } while (opcao != 3);
 
     return 0;
 }
