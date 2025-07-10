@@ -114,7 +114,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
 void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
     if (qtdRestaurantes == 0) {
-        printf("Nenhum restaurante cadastrado no sistema. \n");
+        printf("Nenhum restaurante cadastrado no sistema.\n");
 
     } else {
         int filtrar = -1;
@@ -127,22 +127,19 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
         }
 
         int encontrados = 0;
-        int i = 0;
-        while (i < qtdRestaurantes) {
+        for (int i = 0; i < qtdRestaurantes; i++) {
+            const Restaurante *r = restaurantes[i];
             // se for para filtrar, so mostre se o tipo bater
-            if (filtrar == 1 && restaurantes[i]->tipo != tipoFiltro) {
-                i++;
-            } else {
-                printRestaurante(restaurantes[i]);
+            if (!filtrar || r->tipo == tipoFiltro) {
+                printRestaurante(r);
                 encontrados++;
             }
+        }
 
-            if (encontrados == 0) {
-                printf("\nNenhum restaurante encontrado com os filtros selecionados.");
-            } else {
-                printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
-            }
-            i++;
+        if (encontrados == 0) {
+            printf("\nNenhum restaurante encontrado com os filtros selecionados.");
+        } else {
+            printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
         }
     }
 }
