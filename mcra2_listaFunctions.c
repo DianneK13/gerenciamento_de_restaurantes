@@ -31,6 +31,24 @@ typedef struct{
     int qtdMenu;
 }Restaurante;
 
+void printRestaurante(const Restaurante * r) {
+    printf("Restaurante: %s\n", r->nome);
+    printf("Descricao: %s\n", r->descricao);
+    printf("Codigo: %d\n", r->codigo);
+    printf("Tipo: ");
+    switch (r->tipo) {
+        case italiana:   printf("italiana\n"); break;
+        case japonesa:   printf("japonesa\n"); break;
+        case brasileira: printf("brasileira\n"); break;
+        case mexicana:   printf("mexicana\n"); break;
+        case vegana:     printf("vegana\n"); break;
+        case fastFood:   printf("fastFood\n"); break;
+        case outros:     printf("outros\n"); break;
+        default:         printf("tipo desconhecido\n");
+    }
+    printf("---\n");
+}
+
 void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
     int codigo, existe = 0;
@@ -85,7 +103,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         }
         (*qtdRestaurantes)++;
 
-        printf("Restaurante cadastrado com sucesso!");
+        printf("Restaurante cadastrado com sucesso!\n");
     }
 }
 
@@ -114,30 +132,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
             if (filtrar == 1 && restaurantes[i]->tipo != tipoFiltro) {
                 i++;
             } else {
-                
-                printf("\nRestaurante: %s\n", restaurantes[i]->nome);
-                printf("Descricao: %s\n", restaurantes[i]->descricao);
-                printf("Codigo: %d\n", restaurantes[i]->codigo);
-                printf("Tipo: ");
-                
-                if (restaurantes[i]->tipo == italiana) {
-                    printf("italiana\n");
-                } else if (restaurantes[i]->tipo == japonesa) {
-                    printf("japonesa\n");
-                } else if (restaurantes[i]->tipo == brasileira) {
-                    printf("brasileira\n");
-                } else if (restaurantes[i]->tipo == mexicana) {
-                    printf("mexicana\n");
-                } else if (restaurantes[i]->tipo == vegana) {
-                    printf("vegana\n");
-                } else if (restaurantes[i]->tipo == fastFood) {
-                    printf("fastFood\n");
-                } else if (restaurantes[i]->tipo == outros) {
-                    printf("outros\n");
-                } else printf("tipo desconhecido.\n");
-
-                printf("---\n");
-
+                printRestaurante(restaurantes[i]);
                 encontrados++;
             }
 
