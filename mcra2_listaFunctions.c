@@ -57,6 +57,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
         printf("Escolha o tipo de cozinha: \n");
         printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
+        printf("Digite a opção: ");
         scanf("%u", &tipo);
 
 
@@ -400,7 +401,7 @@ int main() {
             printf("Opcao invalida! Tente novamente.\n");
         }
 
-    } while (opcao != 3);
+    } while (opcao != 7);
 
     return 0;
 }
