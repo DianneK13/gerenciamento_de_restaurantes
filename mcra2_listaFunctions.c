@@ -49,11 +49,11 @@ void printRestaurante(const Restaurante * r) {
     printf("---\n");
 }
 
-int escolherTipoRestaurante() {
+int escolherTipoCozinha() {
     int tipo;
     printf("Tipos de cozinha: \n");
     printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
-    printf("Digite o numero correspondente: \n");
+    printf("Digite o numero correspondente: ");
     scanf("%d", &tipo);
     return tipo;
 }
@@ -84,7 +84,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         printf("Digite a descricao do restaurante: \n");
         scanf(" %99[^\n]", descricao);
 
-        const TipoCozinha tipo = escolherTipoRestaurante();
+        const TipoCozinha tipo = escolherTipoCozinha();
 
         // Alocar espaco extra
         Restaurante* tmp = realloc(*restaurantes, (*qtdRestaurantes + 1) * sizeof(Restaurante));
@@ -123,7 +123,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
 
         int tipoFiltro = -1;
         if (filtrar == 1) {
-            tipoFiltro = escolherTipoRestaurante();
+            tipoFiltro = escolherTipoCozinha();
         }
 
         int encontrados = 0;
@@ -207,7 +207,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             printf("Deseja atualizar o tipo de cozinha? (S/N)");
             scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's') {
-                const int novoTipo = escolherTipoRestaurante();
+                const int novoTipo = escolherTipoCozinha();
                 r->tipo = novoTipo;
             }
             printf("Restaurante atualizado com sucesso!\n");
