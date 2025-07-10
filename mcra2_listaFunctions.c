@@ -141,6 +141,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
             } else {
                 printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
             }
+            i++;
         }
     }
 }
