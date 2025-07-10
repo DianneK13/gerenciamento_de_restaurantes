@@ -195,7 +195,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 
             // Atualizar descricao
             printf("Deseja alterar a descrição? (S/N)");
-            scanf(" %c", escolha);
+            scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's'){
                 printf("Digite nova descricao: ");
                 scanf(" %99[^\n]", novoTexto);
@@ -211,7 +211,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 
             // Atualizar tipo
             printf("Deseja atualizar o tipo de cozinha? (S/N)");
-            scanf(" %c", escolha);
+            scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's') {
                 int novoTipo;
                 printf("Escolha um novo tipo de cozinha: ");
