@@ -383,24 +383,32 @@ int main() {
         printf("Digite sua opcao: ");
         scanf(" %d", &opcao);
 
-        if (opcao == 1) {
-            novoRestaurante(&restaurantes, &qtdRestaurantes);
-        } else if (opcao == 2) {
-            listarRestaurantes(&restaurantes, qtdRestaurantes);
-        } else if (opcao == 3) {
-            atualizarRestaurante(restaurantes, qtdRestaurantes);
-        } else if (opcao == 4) {
-            adicionarPrato(restaurantes, qtdRestaurantes);
-        } else if (opcao == 5) {
-            listarMenu(restaurantes, qtdRestaurantes);
-        } else if (opcao == 6) {
-            removerPrato(restaurantes, qtdRestaurantes);
-        } else if (opcao == 7) {
-            printf("\nEncerrando sistema GO Food...\n");
-            desaloca(restaurantes, qtdRestaurantes);
-        }
-        else {
-            printf("Opcao invalida! Tente novamente.\n");
+        switch (opcao) {
+            case 1:
+                novoRestaurante(&restaurantes, &qtdRestaurantes);
+                break;
+            case 2:
+                listarRestaurantes(&restaurantes, qtdRestaurantes);
+                break;
+            case 3:
+                atualizarRestaurante(restaurantes, qtdRestaurantes);
+                break;
+            case 4:
+                adicionarPrato(restaurantes, qtdRestaurantes);
+                break;
+            case 5:
+                listarMenu(restaurantes, qtdRestaurantes);
+                break;
+            case 6:
+                removerPrato(restaurantes, qtdRestaurantes);
+                break;
+            case 7:
+                printf("\nEncerrando sistema GO Food...\n");
+                desaloca(restaurantes, qtdRestaurantes);
+                break;
+            default:
+                printf("Opcao invalida! Tente novamente.\n");
+                break;
         }
 
     } while (opcao != 7);
