@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_NOME 50
+#define MAX_DESC 100
+
 typedef enum {
     italiana = 1,
     japonesa,
@@ -31,8 +34,8 @@ typedef struct{
 void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
     int codigo, existe = 0;
-    char nome[50];
-    char descricao[100];
+    char nome[MAX_NOME];
+    char descricao[MAX_DESC];
     TipoCozinha tipo;
 
     printf("Digite o codigo do restaurante: ");
@@ -60,7 +63,6 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         printf("Digite a opção: ");
         scanf("%u", &tipo);
 
-
         // Alocar espaco extra
         Restaurante* tmp = realloc(*restaurantes, (*qtdRestaurantes + 1) * sizeof(Restaurante));
         if (tmp == NULL) {
@@ -71,13 +73,16 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
         // Preencher campos no novo restaurante
         Restaurante* novo = &(*restaurantes)[*qtdRestaurantes];
-        strcpy(novo->nome, nome);
-        strcpy(novo->descricao, descricao);
-        novo->codigo = codigo;
-        novo->tipo = tipo;
-        novo->menu = NULL;
-        novo->qtdMenu = 0;
-
+        novo->nome      = strdup(nome);
+        novo->descricao = strdup(descricao);
+        novo->codigo    = codigo;
+        novo->tipo      = tipo;
+        novo->menu      = NULL;
+        novo->qtdMenu   = 0;
+        if (!novo->nome || !novo->descricao) {
+            printf("Erro de alocacao de string");
+            exit(1);
+        }
         (*qtdRestaurantes)++;
 
         printf("Restaurante cadastrado com sucesso!");
@@ -177,7 +182,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             scanf(" %c\n", &escolha);
             if (escolha == 'S' || escolha == 's') {
                 printf("Digite o novo nome: \n");
-                scanf(" %49[^\n]", novoTexto);
+                scanf(" %99[^\n]", novoTexto);
 
                 // Liberar antigo
                 free(r->nome);
@@ -193,7 +198,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             scanf(" %c", escolha);
             if (escolha == 'S' || escolha == 's'){
                 printf("Digite nova descricao: ");
-                scanf(" %[^\n]", novoTexto);
+                scanf(" %99[^\n]", novoTexto);
 
                 // Liberar antigo
                 free(r->descricao);
@@ -211,7 +216,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
                 int novoTipo;
                 printf("Escolha um novo tipo de cozinha: ");
                 printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
-                scanf(" %d", &novoTipo);
+                scanf("%d", &novoTipo);
 
                 r->tipo = novoTipo;
             }
@@ -231,17 +236,17 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         printf("Restaurante nao encontrado.\n");
     } else {
         Prato novoPrato;
-        char nomePrato[100];
-        char descPrato[100];
+        char nomePrato[MAX_NOME];
+        char descPrato[MAX_DESC];
 
         printf("Digite o nome do prato: \n");
-        scanf(" %[^\n]", nomePrato);
+        scanf(" %49[^\n]", nomePrato);
 
         printf("Digite a descricao do prato: \n");
-        scanf(" %[^\n]", descPrato);
+        scanf(" %99[^\n]", descPrato);
 
         printf("E qual o preco? \n");
-        scanf(" %f", &novoPrato.preco);
+        scanf("%f", &novoPrato.preco);
 
         novoPrato.nome = strdup(nomePrato);
         if (novoPrato.nome == NULL) {
@@ -271,7 +276,7 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
 }
 
-void listarMenu(Restaurante* restaurantes, int qtdRestaurantes) {
+void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite  o codigo do restaurante que deseja ver o menu: ");
     int codigo;
@@ -299,7 +304,7 @@ void listarMenu(Restaurante* restaurantes, int qtdRestaurantes) {
 
 }
 
-void removerPrato(Restaurante* restaurantes, int qtdRestaurantes) {
+void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
     printf("Digite o codigo do restaurante que deseja remover um prato: ");
     int codigo;
     scanf("%d", &codigo);
@@ -330,7 +335,8 @@ void removerPrato(Restaurante* restaurantes, int qtdRestaurantes) {
             // Reduzir contador
             r->qtdMenu--;
             // Realocar vetor
-            Prato *tmp = realloc(r->menu, r->qtdMenu * sizeof(Prato));
+            Prato* tmp = NULL;
+            tmp = realloc(r->menu, r->qtdMenu * sizeof(Prato));
             if (tmp == NULL) {
                 printf("Erro de alocacao no menu\n");
                 exit(1);
@@ -341,7 +347,7 @@ void removerPrato(Restaurante* restaurantes, int qtdRestaurantes) {
     }
 }
 
-void desaloca(Restaurante* restaurantes, int qtdRestaurantes) {
+void desaloca(Restaurante* restaurantes, const int qtdRestaurantes) {
     int i = 0;
     while (i < qtdRestaurantes) {
         // Libera pratos do menu
