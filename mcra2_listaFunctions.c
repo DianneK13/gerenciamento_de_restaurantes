@@ -112,9 +112,9 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
         printf("Nenhum restaurante cadastrado no sistema. \n");
 
     } else {
-        int filtrar;
+        int filtrar = -1;
         printf("Deseja filtrar por tipo de cozinha? (1 - SIM, 0 - NAO): ");
-        scanf("%d\n", &filtrar);
+        scanf("%d", &filtrar);
 
         int tipoFiltro = -1;
         if (filtrar == 1) {
