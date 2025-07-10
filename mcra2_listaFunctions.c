@@ -44,7 +44,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
     //Verificar se o codigo ja existe
     int i = 0;
     while (existe == 0 && i < *qtdRestaurantes) {
-        if (restaurantes[i]->codigo == codigo) {
+        if ((*restaurantes)[i].codigo == codigo) {
             existe = 1;}
         i++;
     }
