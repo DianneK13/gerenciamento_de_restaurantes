@@ -76,7 +76,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
     }
 
     if (existe) {
-        printf("Codigo ja cadastrado. Nao foi possivel adicionar o restaurante.\n");
+        printf("\n❌ Codigo ja cadastrado. Nao foi possivel adicionar o restaurante.\n");
     } else {
         printf("Digite o nome do restaurante: \n");
         scanf(" %49[^\n]", nome);
@@ -89,7 +89,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         // Alocar espaco extra
         Restaurante* tmp = realloc(*restaurantes, (*qtdRestaurantes + 1) * sizeof(Restaurante));
         if (tmp == NULL) {
-            printf("Erro ao alocar espaco extra.\n");
+            printf("⚠️ Erro ao alocar espaco extra.\n");
             exit(1);
         }
         *restaurantes = tmp;
@@ -103,12 +103,12 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         novo->menu      = NULL;
         novo->qtdMenu   = 0;
         if (!novo->nome || !novo->descricao) {
-            printf("Erro de alocacao de string");
+            printf("⚠️ Erro de alocacao de string");
             exit(1);
         }
         (*qtdRestaurantes)++;
 
-        printf("Restaurante cadastrado com sucesso!\n");
+        printf("\n✅ Restaurante \"%s\" cadastrado com sucesso! 🎉\n", novo->nome);
         printf("\nVoltando ao menu principal... 🍽️\n");
     }
 }
@@ -127,6 +127,9 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
             tipoFiltro = escolherTipoCozinha();
         }
 
+        printf("\n🍽️  Listando restaurantes cadastrados...\n");
+        printf("-------------------------------------------\n");
+
         int encontrados = 0;
         for (int i = 0; i < qtdRestaurantes; i++) {
             const Restaurante *r = &(*restaurantes)[i];
@@ -138,7 +141,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
         }
 
         if (encontrados == 0) {
-            printf("\nNenhum restaurante encontrado com os filtros selecionados.");
+            printf("\n⚠️  Nenhum restaurante encontrado com os filtros selecionados.\n");
         } else {
             printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
         }
@@ -184,7 +187,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
                 free(r->nome);
                 r->nome = strdup(novoTexto);
                 if (r->nome == NULL) {
-                    printf("Problema de alocacao na troca de nome!\n");
+                    printf("⚠️ Erro de alocacao na troca de nome!\n");
                     exit(1);
                 }
             }
@@ -200,7 +203,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
                 free(r->descricao);
                 r->descricao = strdup(novoTexto);
                 if (r->descricao == NULL){
-                    printf("Problema de alocacao na troca de descricao!\n");
+                    printf("⚠️ Erro de alocacao na troca de descricao!\n");
                     exit(1);
                 }
             }
@@ -212,7 +215,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
                 const int novoTipo = escolherTipoCozinha();
                 r->tipo = novoTipo;
             }
-            printf("Restaurante atualizado com sucesso!\n");
+            printf("\n✅ Restaurante \"%s\" atualizado com sucesso! 🎉\n", r->nome);
         }
     printf("\nVoltando ao menu principal... 🍽️\n");
 
@@ -243,20 +246,20 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
         novoPrato.nome = strdup(nomePrato);
         if (novoPrato.nome == NULL) {
-            printf("Erro de alocacao no nome.\n");
+            printf("⚠️ Erro de alocacao no nome.\n");
             exit(1);
         }
 
         novoPrato.descricao = strdup(descPrato);
         if (novoPrato.descricao == NULL) {
-            printf("Erro de alocacao na descricao.\n");
+            printf("⚠️ Erro de alocacao na descricao.\n");
             exit(1);
         }
 
         // Realocar espaco extra
         Prato *tmp = realloc(r->menu, (r->qtdMenu + 1) * sizeof(Prato));
         if (tmp == NULL) {
-            printf("Erro de alocacao no menu\n");
+            printf("⚠️ Erro de alocacao no menu\n");
             exit(1);
         }
         r->menu = tmp;
@@ -264,7 +267,8 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         r->menu[r->qtdMenu] = novoPrato;
         r->qtdMenu++;
 
-        printf("Prato adicionado ao menu do Restaurante %s com sucesso!\n", r->nome);
+        printf("\n✅ Prato \"%s\" adicionado ao menu do restaurante \"%s\" com sucesso! 🎉\n",
+               novoPrato.nome, r->nome);
     }
     printf("\nVoltando ao menu principal... 🍽️\n");
 }
@@ -315,29 +319,29 @@ void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         scanf("%d", &indice);
 
         // Validar indice (entre 1 e qtdMenu)
-        if (indice < 1 || indice > r->qtdMenu) {
-            printf("Indice invalido.\n");
-        } else {
-            indice--;
-            // Liberar prato
-            free(r->menu[indice].nome);
-            free(r->menu[indice].descricao);
-            // Deslocar os pratos seguintes para a esquerda
-            for (int i = indice; i < r->qtdMenu - 1; i++) {
-                r->menu[i] = r->menu[i + 1];
-            }
-            // Reduzir contador
-            r->qtdMenu--;
-            // Realocar vetor
-            Prato* tmp = NULL;
-            tmp = realloc(r->menu, r->qtdMenu * sizeof(Prato));
-            if (tmp == NULL) {
-                printf("Erro de alocacao no menu\n");
-                exit(1);
-            }
-            r->menu = tmp;
-            printf("Prato removido com sucesso!\n");
+        while (indice < 1 || indice > r->qtdMenu){
+            printf("\n❌ Indice invalido! Tente novamente.\n");
         }
+        indice--;
+        // Liberar prato
+        free(r->menu[indice].nome);
+        free(r->menu[indice].descricao);
+        // Deslocar os pratos seguintes para a esquerda
+        for (int i = indice; i < r->qtdMenu - 1; i++) {
+            r->menu[i] = r->menu[i + 1];
+        }
+        // Reduzir contador
+        r->qtdMenu--;
+        // Realocar vetor
+        Prato* tmp = NULL;
+        tmp = realloc(r->menu, r->qtdMenu * sizeof(Prato));
+        if (tmp == NULL) {
+            printf("⚠️ Erro de alocacao no menu\n");
+            exit(1);
+        }
+        r->menu = tmp;
+        printf("\n✅ Prato removido do restaurante \"%s\" com sucesso! 🎉\n", r->nome);
+
     }
     printf("\nVoltando ao menu principal... 🍽️\n");
 }
@@ -390,7 +394,7 @@ void opcaoRemoverPrato(Restaurante** r, const int * qtd) {
 }
 
 void opcaoSair(Restaurante** r, int* qtd) {
-    printf("\nObrigado por usar o GO Food! Ate a proxima! 🎉\n");
+    printf("\nObrigado por usar o GO Food! Ate a proxima! 🎉👋\n");
     desaloca(*r, *qtd);
     *r = NULL;
     *qtd = 0;
