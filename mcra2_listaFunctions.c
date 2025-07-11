@@ -109,6 +109,7 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
         (*qtdRestaurantes)++;
 
         printf("Restaurante cadastrado com sucesso!\n");
+        printf("\nVoltando ao menu principal... 🍽️\n");
     }
 }
 
@@ -142,6 +143,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
             printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
         }
     }
+    printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
 Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes, const int codigoRestaurante) {
@@ -172,8 +174,8 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             char novoTexto[100];
 
             // Atualizar nome
-            printf("Deseja alterar o nome? (S/N)");
-            scanf(" %c\n", &escolha);
+            printf("Deseja alterar o nome? (S/N) ");
+            scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's') {
                 printf("Digite o novo nome: \n");
                 scanf(" %99[^\n]", novoTexto);
@@ -188,7 +190,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             }
 
             // Atualizar descricao
-            printf("Deseja alterar a descrição? (S/N)");
+            printf("Deseja alterar a descricao? (S/N) ");
             scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's'){
                 printf("Digite nova descricao: ");
@@ -204,7 +206,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             }
 
             // Atualizar tipo
-            printf("Deseja atualizar o tipo de cozinha? (S/N)");
+            printf("Deseja atualizar o tipo de cozinha? (S/N) ");
             scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's') {
                 const int novoTipo = escolherTipoCozinha();
@@ -212,6 +214,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             }
             printf("Restaurante atualizado com sucesso!\n");
         }
+    printf("\nVoltando ao menu principal... 🍽️\n");
 
 }
 
@@ -263,7 +266,7 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
         printf("Prato adicionado ao menu do Restaurante %s com sucesso!\n", r->nome);
     }
-
+    printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
 void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
@@ -272,7 +275,7 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
     int codigo;
     scanf("%d", &codigo);
 
-    Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
+    const Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
     if (r == NULL) {
         printf("Restaurante nao encontrado.\n");
     } else if (r->qtdMenu == 0) {
@@ -282,7 +285,7 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
 
         int i = 0;
         while (i < r->qtdMenu) {
-            printf("\nPrato %d:\n", i);
+            printf("\nPrato %d:\n", i + 1);
             printf("Nome: %s\n", r->menu[i].nome);
             printf("Descricao: %s\n", r->menu[i].descricao);
             printf("Preco: R$%.2f\n", r->menu[i].preco);
@@ -291,7 +294,7 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
         }
         printf("\n");
     }
-
+    printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
 void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
@@ -311,10 +314,11 @@ void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         printf("Digite o indice do prato que deseja remover: ");
         scanf("%d", &indice);
 
-        // Validar indice
-        if (indice < 0 || indice >= r->qtdMenu) {
+        // Validar indice (entre 1 e qtdMenu)
+        if (indice < 1 || indice > r->qtdMenu) {
             printf("Indice invalido.\n");
         } else {
+            indice--;
             // Liberar prato
             free(r->menu[indice].nome);
             free(r->menu[indice].descricao);
@@ -335,6 +339,7 @@ void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
             printf("Prato removido com sucesso!\n");
         }
     }
+    printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
 void desaloca(Restaurante* restaurantes, const int qtdRestaurantes) {
@@ -385,7 +390,7 @@ void opcaoRemoverPrato(Restaurante** r, const int * qtd) {
 }
 
 void opcaoSair(Restaurante** r, int* qtd) {
-    printf("\nEncerrando sistema GO Food...\n");
+    printf("\nObrigado por usar o GO Food! Ate a proxima! 🎉\n");
     desaloca(*r, *qtd);
     *r = NULL;
     *qtd = 0;
