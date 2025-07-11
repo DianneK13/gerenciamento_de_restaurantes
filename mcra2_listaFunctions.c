@@ -128,7 +128,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
 
         int encontrados = 0;
         for (int i = 0; i < qtdRestaurantes; i++) {
-            const Restaurante *r = restaurantes[i];
+            const Restaurante *r = &(*restaurantes)[i];
             // se for para filtrar, so mostre se o tipo bater
             if (!filtrar || r->tipo == tipoFiltro) {
                 printRestaurante(r);
