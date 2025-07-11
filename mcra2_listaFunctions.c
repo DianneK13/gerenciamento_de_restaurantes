@@ -357,10 +357,58 @@ void desaloca(Restaurante* restaurantes, const int qtdRestaurantes) {
 }
 
 
+// Video usado como base https://youtu.be/Lf3ZV0UsnEo?si=6gmjm_Xa5ikqoI-Y :)
+// Recomendo dar uma olhada, é ótimo!
+
+void opcaoCadastrar(Restaurante** r, int* qtd) {
+    novoRestaurante(r, qtd);
+}
+
+void opcaoListar(Restaurante** r, const int * qtd) {
+    listarRestaurantes(r, *qtd);
+}
+
+void opcaoAtualizar(Restaurante** r, const int * qtd) {
+    atualizarRestaurante(*r, *qtd);
+}
+
+void opcaoAdicionarPrato(Restaurante** r, const int * qtd) {
+    adicionarPrato(*r, *qtd);
+}
+
+void opcaoListarMenu(Restaurante** r, const int * qtd) {
+    listarMenu(*r, *qtd);
+}
+
+void opcaoRemoverPrato(Restaurante** r, const int * qtd) {
+    removerPrato(*r, *qtd);
+}
+
+void opcaoSair(Restaurante** r, int* qtd) {
+    printf("\nEncerrando sistema GO Food...\n");
+    desaloca(*r, *qtd);
+    *r = NULL;
+    *qtd = 0;
+}
+
+typedef void (*FuncaoMenu)(Restaurante**, int*);
+
 int main() {
     Restaurante *restaurantes = NULL;
     int qtdRestaurantes = 0;
     int opcao = 0;
+
+    const FuncaoMenu funcoes[] = {
+        opcaoCadastrar,
+        opcaoListar,
+        opcaoAtualizar,
+        opcaoAdicionarPrato,
+        opcaoListarMenu,
+        opcaoRemoverPrato,
+        opcaoSair
+    };
+
+    const int numFuncoes = sizeof(funcoes) / sizeof(funcoes[0]);
 
     do {
         printf("\n=================================\n");
@@ -377,32 +425,10 @@ int main() {
         printf("Digite sua opcao: ");
         scanf(" %d", &opcao);
 
-        switch (opcao) {
-            case 1:
-                novoRestaurante(&restaurantes, &qtdRestaurantes);
-                break;
-            case 2:
-                listarRestaurantes(&restaurantes, qtdRestaurantes);
-                break;
-            case 3:
-                atualizarRestaurante(restaurantes, qtdRestaurantes);
-                break;
-            case 4:
-                adicionarPrato(restaurantes, qtdRestaurantes);
-                break;
-            case 5:
-                listarMenu(restaurantes, qtdRestaurantes);
-                break;
-            case 6:
-                removerPrato(restaurantes, qtdRestaurantes);
-                break;
-            case 7:
-                printf("\nEncerrando sistema GO Food...\n");
-                desaloca(restaurantes, qtdRestaurantes);
-                break;
-            default:
-                printf("Opcao invalida! Tente novamente.\n");
-                break;
+        if (opcao >= 1 && opcao <= numFuncoes) {
+            funcoes[opcao - 1](&restaurantes, &qtdRestaurantes);
+        } else {
+            printf("Opcao invalida! Tente novamente.\n");
         }
 
     } while (opcao != 7);
