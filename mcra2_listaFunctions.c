@@ -32,10 +32,11 @@ typedef struct{
 }Restaurante;
 
 void printRestaurante(const Restaurante * r) {
-    printf("Restaurante: %s\n", r->nome);
-    printf("Descricao: %s\n", r->descricao);
-    printf("Codigo: %d\n", r->codigo);
-    printf("Tipo: ");
+    printf("\n📍 Restaurante\n");
+    printf("🧾 Nome:        %s\n", r->nome);
+    printf("📝 Descrição:   %s\n", r->descricao);
+    printf("🏷️ Código:      %d\n", r->codigo);
+    printf("🍽️ Tipo:        ");
     switch (r->tipo) {
         case italiana:   printf("italiana\n"); break;
         case japonesa:   printf("japonesa\n"); break;
@@ -46,15 +47,21 @@ void printRestaurante(const Restaurante * r) {
         case outros:     printf("outros\n"); break;
         default:         printf("tipo desconhecido\n");
     }
-    printf("---\n");
+    printf("------------------------------\n");
 }
 
 int escolherTipoCozinha() {
     int tipo;
-    printf("Tipos de cozinha: \n");
-    printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
-    printf("Digite o numero correspondente: ");
-    scanf("%d", &tipo);
+    do {
+        printf("Tipos de cozinha: \n");
+        printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
+        printf("Digite o numero correspondente (1-7): ");
+        scanf("%d", &tipo);
+
+        if (tipo < 1 || tipo >= numTiposCozinha) {
+            printf("❌ Tipo inválido! Tente novamente.\n\n");
+        }
+    } while (tipo < 1 || tipo >= numTiposCozinha);
     return tipo;
 }
 
@@ -321,6 +328,8 @@ void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         // Validar indice (entre 1 e qtdMenu)
         while (indice < 1 || indice > r->qtdMenu){
             printf("\n❌ Indice invalido! Tente novamente.\n");
+            printf("Digite o indice do prato que deseja remover: ");
+            scanf("%d", &indice);
         }
         indice--;
         // Liberar prato
