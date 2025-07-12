@@ -389,7 +389,7 @@ void opcaoCadastrar(Restaurante** r, int* qtd) {
     novoRestaurante(r, qtd);
 }
 
-void opcaoListar(Restaurante** r, const int * qtd) {
+void opcaoListarRestaurantes(Restaurante** r, const int * qtd) {
     listarRestaurantes(r, *qtd);
 }
 
@@ -428,7 +428,7 @@ int main() {
 
     const FuncaoMenu funcoes[] = {
         opcaoCadastrar,
-        opcaoListar,
+        opcaoListarRestaurantes,
         opcaoAtualizar,
         opcaoAdicionarPrato,
         opcaoListarMenu,
