@@ -73,7 +73,7 @@ int escolherTipoCozinha() {
     printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
     do {
         printf("Digite o numero correspondente (1-7): ");
-        scanf("%d", &tipo);
+        scanf("%d", &tipo); printf("\n");
 
         if (tipo < 1 || tipo >= numTiposCozinha) {
             printf("❌ Tipo inválido! Tente novamente.\n\n");
@@ -95,6 +95,15 @@ int validarCodigo() {
         }
     }
     return codigo;
+}
+
+void listaAtual(const int *qtdRestaurantes, Restaurante** restaurantes) {
+    printf("\n==🍽️  Lista de restaurantes cadastrados...==\n");
+    printf("-------------------------------------------\n");
+    for (int j = 0; j < *qtdRestaurantes; j++) {
+        const Restaurante *r = &(*restaurantes)[j];
+        printRestaurante(r);
+    }
 }
 
 // FUNCOES DO MENU
@@ -161,7 +170,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
     } else {
         int filtrar = -1;
         printf("Deseja filtrar por tipo de cozinha? (1 - SIM, 0 - NAO): ");
-        scanf("%d", &filtrar);
+        scanf("%d", &filtrar); printf("\n");
 
         int tipoFiltro = -1;
         if (filtrar == 1) {
@@ -193,7 +202,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
 void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite o codigo do restaurante que deseja atualizar: ");
-    const int codigo = validarCodigo();
+    const int codigo = validarCodigo(); printf("\n");
 
     Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
 
@@ -205,10 +214,10 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 
             // Atualizar nome
             printf("Deseja alterar o nome? (S/N) ");
-            scanf(" %c", &escolha);
+            scanf(" %c", &escolha); printf("\n");
             if (escolha == 'S' || escolha == 's') {
                 printf("Digite o novo nome: ");
-                scanf(" %99[^\n]", novoTexto);
+                scanf(" %99[^\n]", novoTexto); printf("\n");
 
                 // Liberar antigo
                 free(r->nome);
@@ -221,10 +230,10 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 
             // Atualizar descricao
             printf("Deseja alterar a descricao? (S/N) ");
-            scanf(" %c", &escolha);
+            scanf(" %c", &escolha); printf("\n");
             if (escolha == 'S' || escolha == 's'){
                 printf("Digite nova descricao: ");
-                scanf(" %99[^\n]", novoTexto);
+                scanf(" %99[^\n]", novoTexto); printf("\n");
 
                 // Liberar antigo
                 free(r->descricao);
@@ -237,7 +246,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 
             // Atualizar tipo
             printf("Deseja atualizar o tipo de cozinha? (S/N) ");
-            scanf(" %c", &escolha);
+            scanf(" %c", &escolha); printf("\n");
             if (escolha == 'S' || escolha == 's') {
                 const int novoTipo = escolherTipoCozinha();
                 r->tipo = novoTipo;
@@ -252,7 +261,7 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite o codigo do restaurante que deseja adicionar um prato: ");
 
-    const int codigo = validarCodigo();
+    const int codigo = validarCodigo(); printf("\n");
 
     Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
     if (r == NULL) {
@@ -263,13 +272,13 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         char descPrato[MAX_DESC];
 
         printf("Digite o nome do prato: ");
-        scanf(" %49[^\n]", nomePrato);
+        scanf(" %49[^\n]", nomePrato); printf("\n");
 
         printf("Digite a descricao do prato: ");
-        scanf(" %99[^\n]", descPrato);
+        scanf(" %99[^\n]", descPrato); printf("\n");
 
         printf("E qual o preco? ");
-        scanf("%f", &novoPrato.preco);
+        scanf("%f", &novoPrato.preco); printf("\n");
 
         novoPrato.nome = strdup(nomePrato);
         if (novoPrato.nome == NULL) {
@@ -321,7 +330,7 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes, const int 
         }
         // Adiciona extensao dinamica no separador, proporcional ao nome
         printf("\n==========================");
-        for (int i = 0; i < strlen(r->nome); i++) printf("=");
+        for (int j = 0; j < strlen(r->nome); j++) printf("=");
         printf("======\n");
     }
 }
@@ -461,7 +470,7 @@ int main() {
         printf("7️⃣  - Sair\n");
         printf("=================================\n");
         printf("Digite sua opcao: ");
-        scanf(" %d", &opcao);
+        scanf(" %d", &opcao); printf("\n");
 
         if (opcao >= 1 && opcao <= numFuncoes) {
             funcoes[opcao - 1](&restaurantes, &qtdRestaurantes);
