@@ -319,6 +319,7 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes, const int 
             printf("---");
             i++;
         }
+        // Adiciona extensao dinamica no separador, proporcional ao nome
         printf("\n==========================");
         for (int i = 0; i < strlen(r->nome); i++) printf("=");
         printf("======\n");
@@ -411,7 +412,7 @@ void opcaoAdicionarPrato(Restaurante** r, const int * qtd) {
 }
 
 void opcaoListarMenu(Restaurante** r, const int * qtd) {
-    printf("Digite  o codigo do restaurante que deseja ver o menu: ");
+    printf("Digite o codigo do restaurante que deseja ver o menu: ");
     const int codigo = validarCodigo();
     listarMenu(*r, *qtd, codigo);
     printf("\nVoltando ao menu principal... 🍽️\n");
