@@ -1,0 +1,17 @@
+1
+abc
+102
+Burger House
+Fast-food americano
+6
+1
+102
+103
+Pizza Place
+Pizzaria tradicional
+1
+4
+999
+2
+1
+7

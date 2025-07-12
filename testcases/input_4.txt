@@ -1,0 +1,23 @@
+1
+104
+Veggie Spot
+Restaurante vegano
+5
+4
+104
+Salada Tropical
+Folhas, frutas e sementes
+25.00
+4
+104
+Burger Vegano
+Hamburguer de grão-de-bico
+32.00
+5
+104
+6
+104
+1
+5
+104
+7
