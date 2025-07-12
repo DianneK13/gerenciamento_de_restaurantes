@@ -6,6 +6,7 @@ Fast-food americano
 6
 1
 102
+N
 103
 Pizza Place
 Pizzaria tradicional
@@ -13,5 +14,5 @@ Pizzaria tradicional
 4
 999
 2
-1
+0
 7
