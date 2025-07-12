@@ -109,57 +109,75 @@ void listaAtual(const int *qtdRestaurantes, Restaurante** restaurantes) {
 // FUNCOES DO MENU
 
 void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
-
-    int existe = 0;
+    int continuar = 1;
     char nome[MAX_NOME];
     char descricao[MAX_DESC];
+    char escolha;
 
-    printf("Digite o codigo do restaurante: ");
-    const int codigo = validarCodigo();
+    while (continuar) {
+        int existe = 0;
+        printf("Digite o codigo do restaurante: ");
+        const int codigo = validarCodigo(); printf("\n");
 
-    //Verificar se o codigo ja existe
-    int i = 0;
-    while (existe == 0 && i < *qtdRestaurantes) {
-        if ((*restaurantes)[i].codigo == codigo) {
-            existe = 1;}
-        i++;
-    }
-
-    if (existe) {
-        printf("\n❌ Codigo ja cadastrado. Nao foi possivel adicionar o restaurante.\n");
-    } else {
-        printf("Digite o nome do restaurante: ");
-        scanf(" %49[^\n]", nome);
-
-        printf("Digite a descricao do restaurante: ");
-        scanf(" %99[^\n]", descricao);
-
-        const TipoCozinha tipo = escolherTipoCozinha();
-
-        // Alocar espaco extra
-        Restaurante* tmp = realloc(*restaurantes, (*qtdRestaurantes + 1) * sizeof(Restaurante));
-        if (tmp == NULL) {
-            printf("⚠️ Erro ao alocar espaco extra.\n");
-            exit(1);
+        // Verificar se o codigo ja existe
+        for (int i = 0; i < *qtdRestaurantes; i++) {
+            if ((*restaurantes)[i].codigo == codigo) {
+                existe = 1;
+            }
         }
-        *restaurantes = tmp;
 
-        // Preencher campos no novo restaurante
-        Restaurante* novo = &(*restaurantes)[*qtdRestaurantes];
-        novo->nome      = strdup(nome);
-        novo->descricao = strdup(descricao);
-        novo->codigo    = codigo;
-        novo->tipo      = tipo;
-        novo->menu      = NULL;
-        novo->qtdMenu   = 0;
-        if (!novo->nome || !novo->descricao) {
-            printf("⚠️ Erro de alocacao de string");
-            exit(1);
+        if (existe) {
+            printf("\n❌ Código já cadastrado. Veja abaixo a lista atual de restaurantes.\n");
+            listaAtual(qtdRestaurantes, restaurantes);
+            printf("Algum destes é o que pretendia cadastrar? (S/N) ");
+            scanf(" %c", &escolha);
+            printf("\n");
+
+            const int confirmou = (escolha == 'S' || escolha == 's');
+            if (confirmou) {
+                printf("Certo! Voltando ao menu principal... 🍽️\n");
+            } else {
+                printf("Vamos tentar novamente...\n");
+            }
+            continuar = !confirmou;
         }
-        (*qtdRestaurantes)++;
+        else {
+            // Coleta nome e descrição
+            printf("Digite o nome do restaurante: ");
+            scanf(" %49[^\n]", nome); printf("\n");
+            printf("Digite a descricao do restaurante: ");
+            scanf(" %99[^\n]", descricao); printf("\n");
 
-        printf("\n✅ Restaurante \"%s\" cadastrado com sucesso! 🎉\n", novo->nome);
-        printf("\nVoltando ao menu principal... 🍽️\n");
+            const TipoCozinha tipo = escolherTipoCozinha();
+
+            // Alocar espaco extra
+            Restaurante* tmp = realloc(*restaurantes, (*qtdRestaurantes + 1) * sizeof(Restaurante));
+            if (tmp == NULL) {
+                printf("⚠️ Erro ao alocar espaco extra.\n");
+                exit(1);
+            }
+            *restaurantes = tmp;
+
+            // Preencher campos no novo restaurante
+            Restaurante* novo = &(*restaurantes)[*qtdRestaurantes];
+            novo->nome      = strdup(nome);
+            novo->descricao = strdup(descricao);
+            novo->codigo    = codigo;
+            novo->tipo      = tipo;
+            novo->menu      = NULL;
+            novo->qtdMenu   = 0;
+            if (!novo->nome || !novo->descricao) {
+                printf("⚠️ Erro de alocacao de string.\n");
+                exit(1);
+            }
+            (*qtdRestaurantes)++;
+
+            printf("\n✅ Restaurante \"%s\" cadastrado com sucesso! 🎉\n", novo->nome);
+            printf("\nVoltando ao menu principal... 🍽️\n");
+
+            // Cadastro feito, sai do ‘loop’
+            continuar = 0;
+        }
     }
 }
 
