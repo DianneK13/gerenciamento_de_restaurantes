@@ -294,11 +294,7 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
     printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
-void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
-
-    printf("Digite  o codigo do restaurante que deseja ver o menu: ");
-    int codigo;
-    scanf("%d", &codigo);
+void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes, const int codigo) {
 
     const Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
     if (r == NULL) {
@@ -406,7 +402,10 @@ void opcaoAdicionarPrato(Restaurante** r, const int * qtd) {
 }
 
 void opcaoListarMenu(Restaurante** r, const int * qtd) {
-    listarMenu(*r, *qtd);
+    printf("Digite  o codigo do restaurante que deseja ver o menu: ");
+    const int codigo = validarCodigo();
+    listarMenu(*r, *qtd, codigo);
+    printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
 void opcaoRemoverPrato(Restaurante** r, const int * qtd) {
