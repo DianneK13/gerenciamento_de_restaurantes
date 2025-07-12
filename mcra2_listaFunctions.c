@@ -65,14 +65,29 @@ int escolherTipoCozinha() {
     return tipo;
 }
 
+int validarCodigo() {
+    char entrada[100];
+    int codigo;
+    int valido = 0;
+    while (!valido) {
+        scanf("%s", entrada);
+        if (sscanf(entrada, "%d", &codigo) == 1) {
+            valido = 1;
+        } else {
+            printf("Por favor, digite apenas numeros inteiros: ");
+        }
+    }
+    return codigo;
+}
+
 void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
-    int codigo, existe = 0;
+    int existe = 0;
     char nome[MAX_NOME];
     char descricao[MAX_DESC];
 
     printf("Digite o codigo do restaurante: ");
-    scanf("%d", &codigo);
+    const int codigo = validarCodigo();
 
     //Verificar se o codigo ja existe
     int i = 0;
@@ -172,8 +187,7 @@ Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestauran
 void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite o codigo do restaurante que deseja atualizar: ");
-    int codigo;
-    scanf("%d", &codigo);
+    const int codigo = validarCodigo();
 
     Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
 
@@ -231,8 +245,8 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
 void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
 
     printf("Digite o codigo do restaurante que deseja adicionar um prato: ");
-    int codigo;
-    scanf("%d", &codigo);
+
+    const int codigo = validarCodigo();
 
     Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
     if (r == NULL) {
@@ -305,13 +319,11 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes) {
         }
         printf("\n");
     }
-    printf("\nVoltando ao menu principal... 🍽️\n");
 }
 
 void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
     printf("Digite o codigo do restaurante que deseja remover um prato: ");
-    int codigo;
-    scanf("%d", &codigo);
+    const int codigo = validarCodigo();
 
     Restaurante *r = buscarRestaurante(restaurantes, qtdRestaurantes, codigo);
     if (r == NULL) {
@@ -319,17 +331,16 @@ void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
     } else if (r->qtdMenu == 0) {
         printf("Nenhum prato cadastrado no menu do restaurante.\n");
     } else {
-        listarMenu(restaurantes, qtdRestaurantes);
+        listarMenu(restaurantes, qtdRestaurantes, codigo);
         // Solicitar indice
-        int indice;
         printf("Digite o indice do prato que deseja remover: ");
-        scanf("%d", &indice);
+        int indice = validarCodigo();
 
         // Validar indice (entre 1 e qtdMenu)
         while (indice < 1 || indice > r->qtdMenu){
             printf("\n❌ Indice invalido! Tente novamente.\n");
             printf("Digite o indice do prato que deseja remover: ");
-            scanf("%d", &indice);
+            indice = validarCodigo();
         }
         indice--;
         // Liberar prato
