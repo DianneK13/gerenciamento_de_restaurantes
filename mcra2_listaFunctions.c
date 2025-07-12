@@ -64,7 +64,7 @@ void printRestaurante(const Restaurante * r) {
         case outros:     printf("outros\n"); break;
         default:         printf("tipo desconhecido\n");
     }
-    printf("------------------------------\n");
+    printf("-------------------------------------------\n");
 }
 
 int escolherTipoCozinha() {
@@ -91,7 +91,7 @@ int validarCodigo() {
         if (sscanf(entrada, "%d", &codigo) == 1) {
             valido = 1;
         } else {
-            printf("Por favor, digite apenas numeros inteiros: ");
+            printf("❌ Por favor, digite apenas numeros inteiros: ");
         }
     }
     return codigo;
@@ -168,7 +168,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
             tipoFiltro = escolherTipoCozinha();
         }
 
-        printf("\n🍽️  Listando restaurantes cadastrados...\n");
+        printf("\n==🍽️  Listando restaurantes cadastrados...==\n");
         printf("-------------------------------------------\n");
 
         int encontrados = 0;
@@ -182,7 +182,7 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
         }
 
         if (encontrados == 0) {
-            printf("\n⚠️  Nenhum restaurante encontrado com os filtros selecionados.\n");
+            printf("\n⚠️ Nenhum restaurante encontrado com o filtro selecionado.\n");
         } else {
             printf("\nTotal de restaurantes encontrados: %d\n", encontrados);
         }
@@ -207,7 +207,7 @@ void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) 
             printf("Deseja alterar o nome? (S/N) ");
             scanf(" %c", &escolha);
             if (escolha == 'S' || escolha == 's') {
-                printf("Digite o novo nome: \n");
+                printf("Digite o novo nome: ");
                 scanf(" %99[^\n]", novoTexto);
 
                 // Liberar antigo
@@ -319,7 +319,9 @@ void listarMenu(Restaurante* restaurantes, const int qtdRestaurantes, const int 
             printf("---");
             i++;
         }
-        printf("\n");
+        printf("\n==========================");
+        for (int i = 0; i < strlen(r->nome); i++) printf("=");
+        printf("======\n");
     }
 }
 
@@ -335,13 +337,13 @@ void removerPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
     } else {
         listarMenu(restaurantes, qtdRestaurantes, codigo);
         // Solicitar indice
-        printf("Digite o indice do prato que deseja remover: ");
+        printf("\nDigite o indice do prato que deseja remover: ");
         int indice = validarCodigo();
 
         // Validar indice (entre 1 e qtdMenu)
         while (indice < 1 || indice > r->qtdMenu){
             printf("\n❌ Indice invalido! Tente novamente.\n");
-            printf("Digite o indice do prato que deseja remover: ");
+            printf("\nDigite o indice do prato que deseja remover: ");
             indice = validarCodigo();
         }
         indice--;
@@ -463,7 +465,7 @@ int main() {
         if (opcao >= 1 && opcao <= numFuncoes) {
             funcoes[opcao - 1](&restaurantes, &qtdRestaurantes);
         } else {
-            printf("Opcao invalida! Tente novamente.\n");
+            printf("❌ Opcao invalida! Tente novamente.\n");
         }
 
     } while (opcao != 7);
