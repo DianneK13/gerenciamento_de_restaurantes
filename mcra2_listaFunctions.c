@@ -5,6 +5,8 @@
 #define MAX_NOME 50
 #define MAX_DESC 100
 
+// STRUCTS E ENUM
+
 typedef enum {
     italiana = 1,
     japonesa,
@@ -30,6 +32,21 @@ typedef struct{
     Prato* menu;
     int qtdMenu;
 }Restaurante;
+
+// FUNCOES UTILITARIAS
+
+Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes, const int codigoRestaurante) {
+    Restaurante *restEncontrado = NULL;  // Variável de controle
+    int i = 0;   // Percorre a lista enquanto não encontrar
+    while (i < qtdRestaurantes && restEncontrado == NULL) {
+        if (restaurantes[i].codigo == codigoRestaurante) {
+            restEncontrado = &restaurantes[i];
+        }
+        i++;
+    }
+    return restEncontrado;  // Retorna NULL, se não achar
+
+}
 
 void printRestaurante(const Restaurante * r) {
     printf("\n📍 Restaurante\n");
@@ -79,6 +96,8 @@ int validarCodigo() {
     }
     return codigo;
 }
+
+// FUNCOES DO MENU
 
 void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
 
@@ -169,19 +188,6 @@ void listarRestaurantes(Restaurante** restaurantes, const int qtdRestaurantes) {
         }
     }
     printf("\nVoltando ao menu principal... 🍽️\n");
-}
-
-Restaurante* buscarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes, const int codigoRestaurante) {
-    Restaurante *restEncontrado = NULL;  // Variável de controle
-    int i = 0;   // Percorre a lista enquanto não encontrar
-    while (i < qtdRestaurantes && restEncontrado == NULL) {
-        if (restaurantes[i].codigo == codigoRestaurante) {
-            restEncontrado = &restaurantes[i];
-        }
-        i++;
-    }
-    return restEncontrado;  // Retorna NULL, se não achar
-
 }
 
 void atualizarRestaurante(Restaurante* restaurantes, const int qtdRestaurantes) {
@@ -382,6 +388,7 @@ void desaloca(Restaurante* restaurantes, const int qtdRestaurantes) {
 }
 
 
+// LISTA DE FUNCOES PARA ESCOLHA DO MENU
 // Video usado como base https://youtu.be/Lf3ZV0UsnEo?si=6gmjm_Xa5ikqoI-Y :)
 // Recomendo dar uma olhada, é ótimo!
 
