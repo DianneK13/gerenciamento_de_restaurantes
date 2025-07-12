@@ -93,7 +93,7 @@ Nome: Sashimi
 Descricao: Fatias frescas de salmao
 Preco: R$35.50
 ---
-=========================================
+==========================================
 ```
 </details>
 
