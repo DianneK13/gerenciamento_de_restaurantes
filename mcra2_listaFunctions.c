@@ -35,8 +35,8 @@ void printRestaurante(const Restaurante * r) {
     printf("\n📍 Restaurante\n");
     printf("🧾 Nome:        %s\n", r->nome);
     printf("📝 Descrição:   %s\n", r->descricao);
-    printf("🏷️ Código:      %d\n", r->codigo);
-    printf("🍽️ Tipo:        ");
+    printf("🏷️ Código:       %d\n", r->codigo);
+    printf("🍽️ Tipo:         ");
     switch (r->tipo) {
         case italiana:   printf("italiana\n"); break;
         case japonesa:   printf("japonesa\n"); break;
@@ -52,9 +52,9 @@ void printRestaurante(const Restaurante * r) {
 
 int escolherTipoCozinha() {
     int tipo;
+    printf("Tipos de cozinha: \n");
+    printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
     do {
-        printf("Tipos de cozinha: \n");
-        printf("1 - Italiana\n2 - Japonesa\n3 - Brasileira\n4 - Mexicana\n5 - Vegana\n6 - FastFood\n7 - Outros\n");
         printf("Digite o numero correspondente (1-7): ");
         scanf("%d", &tipo);
 
@@ -85,10 +85,10 @@ void novoRestaurante(Restaurante** restaurantes, int* qtdRestaurantes) {
     if (existe) {
         printf("\n❌ Codigo ja cadastrado. Nao foi possivel adicionar o restaurante.\n");
     } else {
-        printf("Digite o nome do restaurante: \n");
+        printf("Digite o nome do restaurante: ");
         scanf(" %49[^\n]", nome);
 
-        printf("Digite a descricao do restaurante: \n");
+        printf("Digite a descricao do restaurante: ");
         scanf(" %99[^\n]", descricao);
 
         const TipoCozinha tipo = escolherTipoCozinha();
@@ -242,13 +242,13 @@ void adicionarPrato(Restaurante* restaurantes, const int qtdRestaurantes) {
         char nomePrato[MAX_NOME];
         char descPrato[MAX_DESC];
 
-        printf("Digite o nome do prato: \n");
+        printf("Digite o nome do prato: ");
         scanf(" %49[^\n]", nomePrato);
 
-        printf("Digite a descricao do prato: \n");
+        printf("Digite a descricao do prato: ");
         scanf(" %99[^\n]", descPrato);
 
-        printf("E qual o preco? \n");
+        printf("E qual o preco? ");
         scanf("%f", &novoPrato.preco);
 
         novoPrato.nome = strdup(nomePrato);
