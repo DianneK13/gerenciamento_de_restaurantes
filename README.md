@@ -1,4 +1,4 @@
-# Caro monitor! Acesse o arquivo `mcra2_listaFunctions.c` :))
+# Caro monitor! Acesse o arquivo [mcra2_listaFunctions.c](https://github.com/DianneK13/gerenciamento_de_restaurantes/blob/main/mcra2_listaFunctions.c) :))
 
 ## 🍽️ GO Food — Sistema de Gerenciamento de Restaurantes
 
