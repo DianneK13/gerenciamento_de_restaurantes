@@ -16,19 +16,19 @@ O sistema foi desenvolvido como projeto acadêmico para treinar conceitos de:
 
 ### ✨ Funcionalidades
 
-:white_check_mark: Cadastrar restaurantes com nome, descrição, tipo de cozinha e código único.  
-:white_check_mark: Listar restaurantes com ou sem filtros por tipo.  
-:white_check_mark: Atualizar informações de restaurantes.  
-:white_check_mark: Adicionar pratos ao menu de um restaurante.  
-:white_check_mark: Listar cardápios completos.  
-:white_check_mark: Remover pratos do cardápio.  
-:white_check_mark: Validação robusta de entradas (evita crashes e entradas inválidas).  
-:white_check_mark: Mensagens interativas, com uso de emojis para melhorar a UX.  
+✓ Cadastrar restaurantes com nome, descrição, tipo de cozinha e código único.  
+✓ Listar restaurantes com ou sem filtros por tipo.  
+✓ Atualizar informações de restaurantes.  
+✓ Adicionar pratos ao menu de um restaurante.  
+✓ Listar cardápios completos.  
+✓ Remover pratos do cardápio.  
+✓ Validação robusta de entradas (evita crashes e entradas inválidas).  
+✓ Mensagens interativas, com uso de emojis para melhorar a UX.  
 
 ---
 
 ### 🗂️ Estrutura do repositório
-```py
+```c
 gerenciamento_de_restaurantes/
 ├── mcra2_listaFunctions.c     # Arquivo principal do sistema
 ├── testcases/
