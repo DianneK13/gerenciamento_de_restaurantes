@@ -100,7 +100,7 @@ Preco: R$35.50
 ---
 
 ### Inspiração
-•    Parte da aplicação seguiu como o exemplo o [vídeo](https://youtu.be/Lf3ZV0UsnEo?si=tRTc9USU8iIJ3mlq) do [@FilipiDeschamps](https://github.com/FilipeDeschamps)
+•    Parte da aplicação seguiu como o exemplo o [vídeo](https://youtu.be/Lf3ZV0UsnEo?si=tRTc9USU8iIJ3mlq) do [@FilipeDeschamps](https://github.com/FilipeDeschamps)
 
 ---
 
