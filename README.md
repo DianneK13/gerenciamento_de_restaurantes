@@ -28,7 +28,7 @@ O sistema foi desenvolvido como projeto acadêmico para treinar conceitos de:
 ---
 
 ### 🗂️ Estrutura do repositório
-```c
+```md
 gerenciamento_de_restaurantes/
 ├── mcra2_listaFunctions.c     # Arquivo principal do sistema
 ├── testcases/
